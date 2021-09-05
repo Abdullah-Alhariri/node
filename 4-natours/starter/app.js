@@ -14,6 +14,19 @@ app.get('/api/v1/tours', (req,res)=>{
     })    
 })
 
+app.get('/api/v1/tours/:id', (req,res)=>{// After th ":" comes the variable, the value is stored in req.params. For optional variables type ? after them 
+    console.log(req.params.id);
+    // console.log(tours.data.tours);
+
+    // const tour = tours.find (el=> el.data.tours.id === req.params.id)
+
+    res.status(200).json({
+        "status":"success",
+        "results": tours.length,
+        "data": {"tour": JSON.stringify(tours.data)},
+    })    
+})
+
 app.post('/api/v1/tours', (req,res)=>{
     const newId  = tours[tours.length -1].id + 1;
     const newTour = Object.assign({id: newId},req.body ) // This overwrites original variable
@@ -26,7 +39,6 @@ app.post('/api/v1/tours', (req,res)=>{
             "data": {tour : newTour},
         })
     })
-
 })
 
 const port = 3000
