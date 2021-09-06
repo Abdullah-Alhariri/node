@@ -2,9 +2,12 @@ const fs = require("fs");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-
+const tourRouter = express.Router();
+const userRouter = express.Router();
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
 
+app.use("/api/v1/tours", tourRouter);
+app.use("/api/v1/users", userRouter);
 app.use(morgan("dev"));
 app.use(express.json()); // To get the body-data from the use in post request (middleware). if you don't add this you will get undefined if you want to acces the req.body
 app.use((req, res, next) => {
@@ -98,10 +101,10 @@ const deleteUser = (req, res) => {
   });
 };
 
-app.route("/api/v1/tours").get(getAllTours).post(createTour);
-app.route("/api/v1/tours/:id").get(getTour).patch(updateTour).delete(deleteTour);
-app.route("/api/v1/users").get(getAllUsers).post(createUsers);
-app.route("/api/v1/users/:id").get(getUser).patch(updateUsers).delete(deleteUser);
+tourRouter.route("/").get(getAllTours).post(createTour);
+tourRouter.route("/:id").get(getTour).patch(updateTour).delete(deleteTour);
+userRouter.route("/").get(getAllUsers).post(createUsers);
+userRouter.route("/:id").get(getUser).patch(updateUsers).delete(deleteUser);
 
 const port = 3000;
 app.listen(port, () => {
