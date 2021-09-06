@@ -6,15 +6,14 @@ app.use(express.json()) // To get the body-data from the use in post request (mi
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`))
 
-app.get('/api/v1/tours', (req,res)=>{
+const getAllTours =  (req,res)=>{
     res.status(200).json({
         "status":"Success",
         "results": tours.length,
         "data": {tours},
     })    
-})
-
-app.get('/api/v1/tours/:id', (req,res)=>{// After th ":" comes the variable, the value is stored in req.params. For optional variables type ? after them 
+}
+const getTour = (req,res)=>{// After th ":" comes the variable, the value is stored in req.params. For optional variables type ? after them 
     const id  = +req.params.id ;
     const tour = tours.find(el=> +el.id === id);
 
@@ -24,9 +23,8 @@ app.get('/api/v1/tours/:id', (req,res)=>{// After th ":" comes the variable, the
             tour
         },
     })    
-})
-
-app.post('/api/v1/tours', (req,res)=>{
+}
+const createTour = (req,res)=>{
     const newId  = tours[tours.length -1].id + 1;
     const newTour = Object.assign({id: newId},req.body ) // This overwrites original variable
      tours.push(newTour)
@@ -38,9 +36,16 @@ app.post('/api/v1/tours', (req,res)=>{
             "data": {tour : newTour},
         })
     })
-})
+}
+const deleteTour = (req,res)=>{
+    const id  = +req.params.id ;
 
-app.patch('/api/v1/tours/:id', (req,res)=>{
+    res.status(tours.length < id || id < 0? 404 : 204).json({
+        "status":tours.length < id || id < 0? "Not Found" : "Success",
+        "data": null,
+    })   
+}
+const UpdateTour = (req,res)=>{
     const id  = +req.params.id ;
 
     res.status(tours.length < id || id < 0? 404 : 200).json({
@@ -49,16 +54,10 @@ app.patch('/api/v1/tours/:id', (req,res)=>{
             "tours": "Updated tour here..."
         },
     })   
-});
+}
 
-app.delete('/api/v1/tours/:id', (req,res)=>{
-    const id  = +req.params.id ;
-
-    res.status(tours.length < id || id < 0? 404 : 204).json({
-        "status":tours.length < id || id < 0? "Not Found" : "Success",
-        "data": null,
-    })   
-});
+app.route("/api/v1/tours").get(deleteTour).post(createTour);
+app.route("/api/v1/tours/:id").get(getTour).patch(updateTour).delete(deleteTour);
 
 const port = 3000
 app.listen(port, ()=>{
