@@ -48,7 +48,7 @@ const deleteTour = (req, res) => {
     data: null,
   });
 };
-const UpdateTour = (req, res) => {
+const updateTour = (req, res) => {
   const id = +req.params.id;
 
   res.status(tours.length < id || id < 0 ? 404 : 200).json({
