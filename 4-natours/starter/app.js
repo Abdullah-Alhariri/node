@@ -40,6 +40,17 @@ app.post('/api/v1/tours', (req,res)=>{
     })
 })
 
+app.patch('/api/v1/tours/:id', (req,res)=>{
+    const id  = +req.params.id ;
+
+    res.status(tours.length < id || id < 0? 404 : 200).json({
+        "status":tours.length < id || id < 0? "Not Found" : "Success",
+        "data": {
+            "tours": "Updated tour here..."
+        },
+    })   
+});
+
 const port = 3000
 app.listen(port, ()=>{
 console.log(`app is running on port ${port}`);
