@@ -10,7 +10,6 @@ exports.getAllTours = (req, res) => {
   });
 };
 exports.getTour = (req, res) => {
-  // After th ":" comes the variable, the value is stored in req.params. For optional variables type ? after them
   const id = +req.params.id;
   const tour = tours.find((el) => +el.id === id);
 
@@ -27,7 +26,6 @@ exports.createTour = (req, res) => {
   tours.push(newTour);
 
   fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), (err) => {
-    // Stringify : JS => JSON,
     res.status(201).json({
       // 201 = created
       status: "Success",
@@ -54,3 +52,7 @@ exports.updateTour = (req, res) => {
     },
   });
 };
+exports.checkBody = (req, res, next) =>
+  req.body.name && req.body.price
+    ? next()
+    : res.status(400).json({ status: "fail", message: "Missing name or price" });
