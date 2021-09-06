@@ -1,7 +1,8 @@
-const tourRouter = require("./routes/tourRoutes.js");
-const userRouter = require("./routes/userRoutes.js");
 const express = require("express");
+
 const app = express();
+const tourRouter = require("./routes/tourRoutes");
+const userRouter = require("./routes/userRoutes");
 
 if (process.env.NODE_ENV === "development") {
   const morgan = require("morgan");
