@@ -50,17 +50,37 @@ exports.createTour = async (req, res) => {
     });
   }
 };
-exports.updateTour = (req, res) => {
-  res.status(204).json({
-    status: "Success",
-    data: {
-      tours: "Updated tour here...",
-    },
-  });
+exports.updateTour = async (req, res) => {
+  try {
+    const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
+      new: true, // send back the new object
+      runValidators: true,
+    });
+
+    res.status(200).json({
+      status: "Success",
+      data: {
+        tour,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
 };
-exports.deleteTour = (req, res) => {
-  res.status(200).json({
-    status: "Success",
-    data: null,
-  });
+exports.deleteTour = async (req, res) => {
+  try {
+    await Tour.deleteOne(req.params.id);
+    res.status(200).json({
+      status: "Success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
 };
