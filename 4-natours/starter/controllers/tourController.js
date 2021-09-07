@@ -1,11 +1,6 @@
 // const fs = require("fs");
 const Tour = require("./../models/tourModel");
 
-exports.checkBody = (req, res, next) =>
-  req.body.name && req.body.price
-    ? next()
-    : res.status(400).json({ status: "fail", message: "Missing name or price" });
-
 exports.getAllTours = (req, res) => {
   // res.status(200).json({
   //   status: "Success",
