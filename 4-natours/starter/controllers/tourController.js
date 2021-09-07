@@ -1,58 +1,45 @@
-const fs = require("fs");
-const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
+// const fs = require("fs");
+const Tour = require("./../models/tourModel");
+
+exports.checkBody = (req, res, next) =>
+  req.body.name && req.body.price
+    ? next()
+    : res.status(400).json({ status: "fail", message: "Missing name or price" });
 
 exports.getAllTours = (req, res) => {
-  console.log(req.requestTime);
-  res.status(200).json({
-    status: "Success",
-    results: tours.length,
-    data: { tours },
-  });
+  // res.status(200).json({
+  //   status: "Success",
+  //   results: tours.length,
+  //   data: { tours },
+  // });
 };
 exports.getTour = (req, res) => {
-  const id = +req.params.id;
-  const tour = tours.find((el) => +el.id === id);
-
-  res.status(!tour ? 404 : 200).json({
-    status: !tour ? "Not Found" : "Success",
-    data: {
-      tour,
-    },
-  });
+  // const tour = tours.find((el) => +el.id === id);
+  // res.status(!tour ? 404 : 200).json({
+  //   status: !tour ? "Not Found" : "Success",
+  //   data: {
+  //     tour,
+  //   },
+  // });
 };
 exports.createTour = (req, res) => {
-  const newId = tours[tours.length - 1].id + 1;
-  const newTour = Object.assign({ id: newId }, req.body); // This overwrites original variable
-  tours.push(newTour);
-
-  fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), (err) => {
-    res.status(201).json({
-      // 201 = created
-      status: "Success",
-      results: tours.length,
-      data: { tour: newTour },
-    });
-  });
-};
-exports.deleteTour = (req, res) => {
-  const id = +req.params.id;
-
-  res.status(tours.length < id || id < 0 ? 404 : 204).json({
-    status: tours.length < id || id < 0 ? "Not Found" : "Success",
-    data: null,
+  res.status(201).json({
+    status: "Success",
+    // results: tours.length,
+    // data: { tour: newTour },
   });
 };
 exports.updateTour = (req, res) => {
-  const id = +req.params.id;
-
-  res.status(tours.length < id || id < 0 ? 404 : 200).json({
-    status: tours.length < id || id < 0 ? "Not Found" : "Success",
+  res.status(204).json({
+    status: "Success",
     data: {
       tours: "Updated tour here...",
     },
   });
 };
-exports.checkBody = (req, res, next) =>
-  req.body.name && req.body.price
-    ? next()
-    : res.status(400).json({ status: "fail", message: "Missing name or price" });
+exports.deleteTour = (req, res) => {
+  res.status(200).json({
+    status: "Success",
+    data: null,
+  });
+};

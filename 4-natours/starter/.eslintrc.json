@@ -3,9 +3,10 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": [
-      "error",
+      "off",
       {
-        "endOfLine": "auto"
+        "endOfLine": "auto",
+        "usePrettierrc": false
       }
     ],
     "import/newline-after-import": "off",
