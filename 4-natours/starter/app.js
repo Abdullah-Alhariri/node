@@ -9,6 +9,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 console.log(process.env.NODE_ENV);
+
 app.use(express.static(`${__dirname}/public`)); // normaly you cant acces files from browsers. this let files/people get acces to files from the URL
 app.use(express.json()); // To get the body-data from the use in post request (middleware). if you don't add this you will get undefined if you want to acces the req.body
 app.use("/api/v1/tours", tourRouter);
