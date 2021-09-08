@@ -40,7 +40,6 @@ exports.createTour = async (req, res) => {
 
     res.status(201).json({
       status: "Success",
-      // results: tours.length,
       data: { tour: newTour },
     });
   } catch (err) {
