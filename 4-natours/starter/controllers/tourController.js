@@ -3,7 +3,14 @@ const Tour = require("../models/tourModel");
 
 exports.getAllTours = async (req, res) => {
   try {
-    const tours = await Tour.find();
+    const queryObj = { ...req.query };
+    const exlcludedFields = ["page", "sort", "limit", "fields"];
+    exlcludedFields.forEach((el) => delete queryObj[el]);
+
+    const query = Tour.find(queryObj);
+    // sorting logicc here
+    const tours = await query;
+
     res.status(200).json({
       status: "Success",
       results: tours.length,
@@ -45,7 +52,7 @@ exports.createTour = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "fail",
-      message: "Invalid data set! (change this message)",
+      message: err,
     });
   }
 };
