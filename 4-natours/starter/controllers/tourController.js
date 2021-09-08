@@ -7,8 +7,9 @@ exports.getAllTours = async (req, res) => {
     const exlcludedFields = ["page", "sort", "limit", "fields"];
     exlcludedFields.forEach((el) => delete queryObj[el]);
 
-    const query = Tour.find(queryObj);
-    // sorting logicc here
+    let query = Tour.find(queryObj);
+    if (req.query.sort) query = query.sort(req.query.sort.split(",").join(" "));
+    else query = query.sort("-createdAt");
     const tours = await query;
 
     res.status(200).json({
