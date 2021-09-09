@@ -41,7 +41,7 @@ const tourSchema = new mongoose.Schema({
     default: Date.now(),
     selected: false, // to not acces this from the API
   },
-  ratingsAverange: {
+  ratingsAverage: {
     type: Number,
     default: 4.5,
   },
