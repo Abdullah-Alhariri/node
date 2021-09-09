@@ -54,13 +54,21 @@ const tourSchema = new mongoose.Schema(
       max: [5, "Rating must be less or equal 5.0"],
       min: [1, "Rating must be above or equal 1.0"],
     },
+    priceDiscount: {
+      type: Number,
+      validate: {
+        validator: function (val) {
+          return val < this.price;
+        },
+        messange: "Discount price Should be below reqular price",
+      },
+    },
     ratingsQuantity: {
       type: Number,
       default: 0,
     },
     startDates: [Date],
     images: [String],
-    priceDiscount: Number,
   },
   {
     toJSON: { virtuals: true },
