@@ -27,7 +27,7 @@ exports.getAllTours = async (req, res) => {
     });
   }
 };
-exports.getTour = async (req, res) => {
+exports.getTour = async (req, res, next) => {
   try {
     const tour = await Tour.findOne({ _id: req.params.id });
     res.status(200).json({
@@ -37,10 +37,11 @@ exports.getTour = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(404).json({
-      status: "fail",
-      message: "invalid ID",
-    });
+    // res.status(404).json({
+    //   status: "fail",
+    //   message: "invalid ID",
+    // });
+    next();
   }
 };
 exports.createTour = async (req, res) => {
