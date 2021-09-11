@@ -15,7 +15,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.13.9",
     "morgan": "^1.10.0",
-    "ndb": "^1.1.5"
+    "ndb": "^1.1.5",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
