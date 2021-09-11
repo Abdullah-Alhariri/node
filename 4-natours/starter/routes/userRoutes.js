@@ -1,6 +1,5 @@
 const express = require("express");
-const userContconst = require("./../controllers/userController.js");
-
+const userContconst = require("../controllers/userController.js");
 const router = express.Router();
 
 router.route("/").get(userContconst.getAllUsers).post(userContconst.createUsers);
