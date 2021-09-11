@@ -1,12 +1,16 @@
 const express = require("express");
-const userContconst = require("../controllers/userController.js");
+// eslint-disable-next-line import/extensions
+const userController = require("../controllers/userController.js");
+// eslint-disable-next-line import/extensions
+const authController = require("../controllers/authController.js");
 const router = express.Router();
 
-router.route("/").get(userContconst.getAllUsers).post(userContconst.createUsers);
+router.post("/signup", authController.signup);
+router.route("/").get(userController.getAllUsers).post(userController.createUsers);
 router
   .route("/:id")
-  .get(userContconst.getUser)
-  .patch(userContconst.updateUsers)
-  .delete(userContconst.deleteUser);
+  .get(userController.getUser)
+  .patch(userController.updateUsers)
+  .delete(userController.deleteUser);
 
 module.exports = router;
