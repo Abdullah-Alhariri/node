@@ -1,6 +1,11 @@
 /* eslint-disable prettier/prettier */
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config({ path: "./config.env" });
+process.on("uncaughtException", (err) => {
+  console.log(`\nUNCAUGHT EXCEPTION! 💥 Shutting down... \n${err.name} : ${err.message}\n`);
+  process.exit(1);
+});
+
 const app = require("./app");
 const port = process.env.PORT;
 
@@ -14,13 +19,11 @@ mongoose
   })
   .then(() => console.log("DB CONNECTION\n"));
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
   console.log(`app is running on port ${port}`);
 });
+
 process.on("unhandledRejection", (err) => {
-  console.log(err.name, err.message);
-  console.log("UNHANLED REJECTION! 💥 Shutting down... ");
-  server.close(() => {
-    process.exit(1);
-  });
+  console.log(`\nUNHANLED REJECTION! 💥 Shutting down... \n${err.name} : ${err.message}\n`);
+  process.exit(1);
 });
