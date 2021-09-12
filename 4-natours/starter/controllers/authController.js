@@ -76,3 +76,17 @@ exports.restrictTo =
       return next(new AppError("You do not have permission to perform this action", 403));
     next();
   };
+
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  // 1) Get user based on posted email
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) return next(new AppError("There is no user with the provided email adress.", 404));
+
+  // 2) Generate the reandom reset token
+  const resetToken = user.createPasswordResetoken(); // Random digits (send to the email (32 long))
+  await user.save({ validateBeforeSave: false }); // For updating passwordResetToken and passwordResetExpires in the DB
+
+  // 3) Send it to user's email
+});
+
+exports.resetPassword = catchAsync(async (req, res, next) => {});
