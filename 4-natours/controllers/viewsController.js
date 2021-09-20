@@ -11,7 +11,6 @@ exports.getOverview = catchAsync(async (req, res, next) => {
 
   // 3) Render that template using tour data form 1
   res.status(200).render('overview', {
-    title: 'All tours',
     tours
   });
   next();
@@ -24,6 +23,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
   });
 
   res.status(200).render('tour', {
+    title: tour.name,
     tour
   });
 });
