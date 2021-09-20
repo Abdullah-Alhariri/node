@@ -8810,9 +8810,8 @@ var login = /*#__PURE__*/function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            console.log(email, password);
-            _context.prev = 1;
-            _context.next = 4;
+            _context.prev = 0;
+            _context.next = 3;
             return (0, _axios.default)({
               method: 'POST',
               url: 'http://localhost:3000/api/v1/users/login',
@@ -8822,7 +8821,7 @@ var login = /*#__PURE__*/function () {
               }
             });
 
-          case 4:
+          case 3:
             res = _context.sent;
 
             if (res.data.status === 'success') {
@@ -8832,20 +8831,20 @@ var login = /*#__PURE__*/function () {
               }, 1500);
             }
 
-            _context.next = 11;
+            _context.next = 10;
             break;
 
-          case 8:
-            _context.prev = 8;
-            _context.t0 = _context["catch"](1);
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context["catch"](0);
             alert(_context.t0.response.data.message);
 
-          case 11:
+          case 10:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 8]]);
+    }, _callee, null, [[0, 7]]);
   }));
 
   return function login(_x, _x2) {
@@ -9179,16 +9178,13 @@ var loginForm = document.querySelector('.form'); // Checking if map id exist, if
 if (mapBox) {
   var locations = JSON.parse(mapBox.dataset.locations);
   (0, _mapbox.displayMap)(locations);
-} // Values
-
-
-var email = document.getElementById('email').value;
-var password = document.getElementById('password').value;
+}
 
 if (loginForm) {
   loginForm.addEventListener('submit', function (e) {
-    console.log(email, password);
     e.preventDefault();
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
     (0, _login.login)(email, password);
   });
 }

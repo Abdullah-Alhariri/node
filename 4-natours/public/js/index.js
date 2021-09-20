@@ -13,14 +13,11 @@ if (mapBox) {
   displayMap(locations);
 }
 
-// Values
-const email = document.getElementById('email').value;
-const password = document.getElementById('password').value;
-
 if (loginForm) {
   loginForm.addEventListener('submit', e => {
-    console.log(email, password);
     e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
     login(email, password);
   });
 }
