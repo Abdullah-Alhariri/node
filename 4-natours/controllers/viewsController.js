@@ -1,5 +1,5 @@
 const Tour = require('../models/tourModel');
-const reviews = require('../models/reviewModel');
+// const reviews = require('../models/reviewModel');
 const catchAsync = require('./../utils/catchAsync');
 // const AppError = require('./../utils/appError');
 
@@ -11,6 +11,7 @@ exports.getOverview = catchAsync(async (req, res, next) => {
 
   // 3) Render that template using tour data form 1
   res.status(200).render('overview', {
+    title: 'overview',
     tours
   });
   next();
@@ -23,7 +24,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
   });
 
   res.status(200).render('tour', {
-    title: tour.name,
+    // title: `${tour.name} tour`,
     tour
   });
 });
