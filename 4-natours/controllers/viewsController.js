@@ -1,6 +1,6 @@
 const Tour = require('../models/tourModel');
-// const reviews = require('../models/reviewModel');
 const catchAsync = require('./../utils/catchAsync');
+// const reviews = require('../models/reviewModel');
 // const AppError = require('./../utils/appError');
 
 exports.getOverview = catchAsync(async (req, res, next) => {
@@ -14,7 +14,6 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     title: 'overview',
     tours
   });
-  next();
 });
 
 exports.getTour = catchAsync(async (req, res, next) => {
@@ -24,7 +23,13 @@ exports.getTour = catchAsync(async (req, res, next) => {
   });
 
   res.status(200).render('tour', {
-    // title: `${tour.name} tour`,
+    title: `${tour.name} tour`,
     tour
+  });
+});
+
+exports.getLoginForm = catchAsync(async (req, res, next) => {
+  res.status(200).render('login', {
+    title: 'Log in'
   });
 });
