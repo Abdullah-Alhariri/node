@@ -1,4 +1,5 @@
 const Tour = require('../models/tourModel');
+const reviews = require('../models/reviewModel');
 const catchAsync = require('./../utils/catchAsync');
 // const AppError = require('./../utils/appError');
 
@@ -17,7 +18,12 @@ exports.getOverview = catchAsync(async (req, res, next) => {
 });
 
 exports.getTour = catchAsync(async (req, res, next) => {
+  const tour = await Tour.findOne({ slug: req.params.slug }).populate({
+    path: 'reviews',
+    fields: 'review rating user '
+  });
+
   res.status(200).render('tour', {
-    title: 'The Forest Hiker Tour' // jsut for placeholder
+    tour
   });
 });
