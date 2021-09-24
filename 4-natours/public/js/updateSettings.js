@@ -14,6 +14,9 @@ export const updateSettings = async (data, type) => {
       method: 'PATCH',
       url,
       data
+      // data: {
+      //   data
+      // }
     });
 
     if (res.data.status === 'success') {
